@@ -43,6 +43,13 @@ export default {
     };
   },
 
+  mounted() {
+    if( token ) {
+      let authMenu = [{ name: "Logout", route: "Logout" }];
+      this.menus = authMenu;
+    }
+  },
+
   methods: {
     getInfo() {
       axios.get('http://passport/api/user')
@@ -50,7 +57,7 @@ export default {
         console.log(response)
       })
     }
-  }
+  },
 };
 </script>
 

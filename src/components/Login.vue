@@ -51,7 +51,7 @@ export default {
   data() {
     return {
       email: null,
-      passwprd: null
+      password: null
     }
   }
 }

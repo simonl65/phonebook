@@ -86,6 +86,8 @@ export default {
         let accessToken = response.data.auth.access_token;
         localStorage.setItem('token', accessToken);
         localStorage.setItem('user', response.data.user.name);
+
+        window.isSignedIn = true;
       })
       .catch(error => {
         console.error(error)
