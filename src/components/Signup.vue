@@ -75,7 +75,7 @@ export default {
        * Attempt to get the access token:
        */
       axios.post(
-        'http://passport/api/register',
+        '/register',
         {
           name    : this.name,
           email   : this.email,

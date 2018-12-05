@@ -11,7 +11,7 @@ window.axios = axios
 
 window.token = localStorage.getItem('token');
 
-// axios.defaults.baseURL = 'http://passport/api';
+axios.defaults.baseURL = 'http://passport/api';
 axios.defaults.headers.common['Authorization'] = "Bearer " + window.token;
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 

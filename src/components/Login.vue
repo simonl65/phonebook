@@ -17,11 +17,12 @@
             dark
             color="primary"
           >
-            <v-toolbar-title>Login form</v-toolbar-title>
+            <v-toolbar-title>Login</v-toolbar-title>
           </v-toolbar>
           <v-card-text>
             <v-form>
               <v-text-field
+                v-model="email"
                 prepend-icon="person"
                 name="email"
                 label="Email"
@@ -29,6 +30,7 @@
               />
               <v-text-field
                 id="password"
+                v-model="password"
                 prepend-icon="lock"
                 name="password"
                 label="Password"
@@ -38,7 +40,10 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer/>
-            <v-btn color="primary">Login</v-btn>
+            <v-btn
+              color="primary"
+              @click="logIn"
+            >Login</v-btn>
           </v-card-actions>
         </v-card>
       </v-flex>
@@ -48,11 +53,40 @@
 
 <script>
 export default {
-  data() {
-    return {
-      email: null,
-      password: null
+    data(){
+      return {
+        email:null,
+        password:null
+      }
+    },
+
+    methods: {
+      logIn(){
+        axios.post(
+          '/login',
+          {
+            email   : this.email,
+            password: this.password
+          }
+        )
+        .then((response) => {
+          if( undefined == response.data )
+          {
+            throw "Sorry - Login failed";
+          }
+
+          console.log('response:', response);
+
+          let accessToken = response.data.auth.access_token;
+          localStorage.setItem('token', accessToken);
+          localStorage.setItem('user', response.data.user.name);
+
+          window.isSignedIn = true;
+        })
+        .catch(error => {
+          alert(error.message);
+        });
+      }
     }
-  }
 }
 </script>

@@ -8,34 +8,44 @@
           src="@/assets/logo.png"
           alt="Vuetify.js"
           class="mb-5">
-        <h1>Hello Vuetify!</h1>
-        <blockquote>
-          &#8220;First, solve the problem. Then, write the code.&#8221;
-          <footer>
-            <small>
-              <em>&mdash;John Johnson</em>
-            </small>
-          </footer>
-        </blockquote>
+
+        <!-- <div v-for="(contact, index) in contacts" :key="index">
+          <h3>{{ conact.mobile }}</h3>
+        </div> -->
+        <PhonebookDataTable />
+
       </v-layout>
     </v-slide-y-transition>
   </v-container>
 </template>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h1, h2 {
-  font-weight: normal;
+<script>
+import PhonebookDataTable from './PhonebookDataTable';
+
+export default {
+
+  components: {
+    PhonebookDataTable
+  },
+
+  data() {
+    return {
+      contacts: [],
+    }
+  },
+
+  mounted() {
+    this.fetchContacts();
+  },
+
+  methods: {
+    fetchContacts() {
+      axios.get('/contact')
+      .then( response => {
+        console.log(response);
+        this.contacts = response.data.data;
+      })
+    }
+  },
 }
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
-</style>
+</script>

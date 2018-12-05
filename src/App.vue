@@ -39,20 +39,28 @@ export default {
       menus: [
         { name: "Signup", route: "Signup" },
         { name: "Login", route: "Login" }
-      ]
+      ],
     };
   },
 
   mounted() {
+    let authMenu = [
+      { name: "Signup", route: "Signup" },
+      { name: "Login", route: "Login" }
+    ];
+    let guestMenu = [{ name: "Logout", route: "Logout" }];
+
     if( token ) {
-      let authMenu = [{ name: "Logout", route: "Logout" }];
       this.menus = authMenu;
+    }
+    else {
+      this.menus = guestMenu;
     }
   },
 
   methods: {
     getInfo() {
-      axios.get('http://passport/api/user')
+      axios.get('/user')
       .then( response => {
         console.log(response)
       })
@@ -60,6 +68,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-</style>
