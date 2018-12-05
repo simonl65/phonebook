@@ -4,7 +4,16 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import Vuetify from 'vuetify'
+import axios from 'axios'
 import 'vuetify/dist/vuetify.min.css'
+
+window.axios = axios
+
+window.token = localStorage.getItem('token');
+
+// axios.defaults.baseURL = 'http://passport/api';
+axios.defaults.headers.common['Authorization'] = "Bearer " + window.token;
+axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 Vue.use(Vuetify)
 
