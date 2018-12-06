@@ -106,7 +106,10 @@
 export default {
   data: () => ({
     search: "",
-    pagination: { rowsPerPage: 5 },
+    pagination: {
+      rowsPerPage: 5,
+      sortBy: 'fullName'
+    },
     dialog: false,
     headers: [
       { text: "ID", value: "id" },
