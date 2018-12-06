@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="table-wrapper">
     <v-dialog v-model="dialog" max-width="500px">
       <v-btn slot="activator" color="primary" dark class="mb-2">New Contact</v-btn>
       <v-card>
@@ -9,13 +9,13 @@
         <v-card-text>
           <v-container grid-list-md>
             <v-layout wrap>
-              <v-flex xs12 sm6 md4>
+              <!-- <v-flex xs12 sm1 md1>
                 <v-text-field v-model="editedItem.id" label="ID"></v-text-field>
-              </v-flex>
-              <v-flex xs12 sm6 md4>
+              </v-flex>-->
+              <v-flex xs12 sm6 md6>
                 <v-text-field v-model="editedItem.fullName" label="Full Name"></v-text-field>
               </v-flex>
-              <v-flex xs12 sm6 md4>
+              <v-flex xs12 sm6 md6>
                 <v-text-field v-model="editedItem.tel" label="Phone"></v-text-field>
               </v-flex>
             </v-layout>
@@ -40,9 +40,9 @@
       class="elevation-1"
     >
       <template slot="items" slot-scope="props">
-        <td class="text-xs-right">{{ props.item.id }}</td>
-        <td class="text-xs-right">{{ props.item.fullName }}</td>
-        <td class="text-xs-right">{{ props.item.tel }}</td>
+        <td class="text-xs-left">{{ props.item.id }}</td>
+        <td class="text-xs-left">{{ props.item.fullName }}</td>
+        <td class="text-xs-left">{{ props.item.tel }}</td>
         <td class="justify-center layout px-0">
           <v-btn icon class="mx-0" @click="editItem(props.item)">
             <v-icon color="teal">edit</v-icon>
@@ -121,7 +121,7 @@ export default {
   methods: {
     fetchContacts() {
       axios.get("/contact").then(response => {
-        console.log(response);
+        console.log("GET RESPONSE:", response);
         this.contacts = response.data.data;
       });
     },
@@ -137,17 +137,15 @@ export default {
     },
 
     deleteItem(item) {
-      console.log(item);
+      console.log("DELETE CONTACT:", item);
 
       const index = this.contacts.indexOf(item);
 
       confirm("Are you sure you want to delete this item?") &&
         this.contacts.splice(index, 1);
 
-      console.log("deleted data");
-
       axios.delete("/contact/" + item.id).then(response => {
-        console.log(response);
+        console.log("DELETE RESPONSE:", response);
       });
     },
 
@@ -161,8 +159,7 @@ export default {
 
     save() {
       if (this.editedIndex > -1) {
-        console.log("edited data");
-        console.log(this.editedItem);
+        console.log("EDIT CONTACT:", this.editedItem);
 
         axios
           .put("/contact/" + this.editedItem.id, {
@@ -170,13 +167,12 @@ export default {
             phone: this.editedItem.tel
           })
           .then(response => {
-            console.log(response);
+            console.log("PUT RESPONSE:", response);
           });
 
         Object.assign(this.contacts[this.editedIndex], this.editedItem);
       } else {
-        console.log("created data");
-        console.log(this.editedItem);
+        console.log("CREATE CONTACT:", this.editedItem);
 
         axios
           .post("/contact", {
@@ -184,7 +180,7 @@ export default {
             phone: this.editedItem.tel
           })
           .then(response => {
-            console.log(response);
+            console.log("POST RESPONSE:", response);
           });
 
         this.contacts.push(this.editedItem);
@@ -195,3 +191,9 @@ export default {
   }
 };
 </script>
+
+<style>
+.table-wrapper {
+  min-width: 75%;
+}
+</style>
