@@ -1,7 +1,13 @@
 <template>
   <div class="table-wrapper">
-    <v-dialog v-model="dialog" max-width="500px">
-      <v-btn slot="activator" color="primary" dark class="mb-2">New Contact</v-btn>
+    <v-dialog
+      v-model="dialog"
+      max-width="500px">
+      <v-btn
+        slot="activator"
+        color="primary"
+        dark
+        class="mb-2">New Contact</v-btn>
       <v-card>
         <v-card-title>
           <span class="headline">{{ formTitle }}</span>
@@ -12,24 +18,45 @@
               <!-- <v-flex xs12 sm1 md1>
                 <v-text-field v-model="editedItem.id" label="ID"></v-text-field>
               </v-flex>-->
-              <v-flex xs12 sm6 md6>
-                <v-text-field v-model="editedItem.fullName" label="Full Name"></v-text-field>
+              <v-flex
+                xs12
+                sm6
+                md6>
+                <v-text-field
+                  v-model="editedItem.fullName"
+                  label="Full Name"/>
               </v-flex>
-              <v-flex xs12 sm6 md6>
-                <v-text-field v-model="editedItem.tel" label="Phone"></v-text-field>
+              <v-flex
+                xs12
+                sm6
+                md6>
+                <v-text-field
+                  v-model="editedItem.tel"
+                  label="Phone"/>
               </v-flex>
             </v-layout>
           </v-container>
         </v-card-text>
         <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" flat @click.native="close">Cancel</v-btn>
-          <v-btn color="blue darken-1" flat @click.native="save">Save</v-btn>
+          <v-spacer/>
+          <v-btn
+            color="blue darken-1"
+            flat
+            @click.native="close">Cancel</v-btn>
+          <v-btn
+            color="blue darken-1"
+            flat
+            @click.native="save">Save</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
 
-    <v-text-field v-model="search" append-icon="search" label="Search" single-line hide-details></v-text-field>
+    <v-text-field
+      v-model="search"
+      append-icon="search"
+      label="Search"
+      single-line
+      hide-details/>
 
     <v-data-table
       :headers="headers"
@@ -39,26 +66,38 @@
       hide-actions
       class="elevation-1"
     >
-      <template slot="items" slot-scope="props">
+      <template
+        slot="items"
+        slot-scope="props">
         <td class="text-xs-left">{{ props.item.id }}</td>
         <td class="text-xs-left">{{ props.item.fullName }}</td>
         <td class="text-xs-left">{{ props.item.tel }}</td>
         <td class="justify-center layout px-0">
-          <v-btn icon class="mx-0" @click="editItem(props.item)">
+          <v-btn
+            icon
+            class="mx-0"
+            @click="editItem(props.item)">
             <v-icon color="teal">edit</v-icon>
           </v-btn>
-          <v-btn icon class="mx-0" @click="deleteItem(props.item)">
+          <v-btn
+            icon
+            class="mx-0"
+            @click="deleteItem(props.item)">
             <v-icon color="pink">delete</v-icon>
           </v-btn>
         </td>
       </template>
       <template slot="no-data">
-        <v-btn color="primary" @click="initialize">Reset</v-btn>
+        <v-btn
+          color="primary"
+          @click="initialize">Reset</v-btn>
       </template>
     </v-data-table>
 
     <div class="text-xs-center pt-2">
-      <v-pagination v-model="pagination.page" :length="pages"></v-pagination>
+      <v-pagination
+        v-model="pagination.page"
+        :length="pages"/>
     </div>
   </div>
 </template>
