@@ -42,7 +42,7 @@ export default {
     fetchContacts() {
       axios.get('/contact')
       .then( response => {
-        console.log(response);
+        console.log('CONTACT:', response);
         this.contacts = response.data.data;
       })
     }

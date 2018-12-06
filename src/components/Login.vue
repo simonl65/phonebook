@@ -70,12 +70,12 @@ export default {
           }
         )
         .then((response) => {
+          console.log('response:', response);
+
           if( undefined == response.data )
           {
-            throw "Sorry - Login failed";
+            throw new Error('Sorry - Login failed');
           }
-
-          console.log('response:', response);
 
           let accessToken = response.data.auth.access_token;
           localStorage.setItem('token', accessToken);
