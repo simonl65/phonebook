@@ -7,7 +7,7 @@ import Logout from '@/components/Logout';
 
 Vue.use(Router);
 
-export default new Router({
+let router = new Router({
   routes: [
     {
       path: '/',
@@ -31,3 +31,17 @@ export default new Router({
     }
   ]
 });
+
+const openRoutes = [ 'Login', 'Signup' ];
+
+router.beforeEach((to, from, next) => {
+  if( openRoutes.includes( to.name ) ) {
+    next()
+  } else if (window.token) {
+    next()
+  } else {
+    next('/login')
+  }
+})
+
+export default router;

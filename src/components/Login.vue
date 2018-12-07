@@ -70,9 +70,9 @@ export default {
           }
         )
         .then((response) => {
-          console.log('response:', response);
+          console.log('LOGIN RESPONSE:', response);
 
-          if( undefined == response.data )
+          if( undefined == response.data || response.data == '' )
           {
             throw new Error('Sorry - Login failed');
           }
@@ -82,6 +82,10 @@ export default {
           localStorage.setItem('user', response.data.user.name);
 
           window.isSignedIn = true;
+
+          Bus.$emit('loggedIn');
+
+          this.$router.push('/');
         })
         .catch(error => {
           alert(error.message);

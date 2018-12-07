@@ -88,6 +88,10 @@ export default {
         localStorage.setItem('user', response.data.user.name);
 
         window.isSignedIn = true;
+
+        Bus.$emit('loggedIn');
+
+        this.$router.push('/');
       })
       .catch(error => {
         console.error(error)

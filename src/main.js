@@ -7,6 +7,7 @@ import Vuetify from 'vuetify'
 import axios from 'axios'
 import 'vuetify/dist/vuetify.min.css'
 
+window.Bus = new Vue();
 window.axios = axios
 
 window.token = localStorage.getItem('token');
@@ -14,6 +15,7 @@ window.token = localStorage.getItem('token');
 axios.defaults.baseURL = 'http://passport/api';
 axios.defaults.headers.common['Authorization'] = "Bearer " + window.token;
 axios.defaults.headers.post['Content-Type'] = 'application/json';
+axios.defaults.headers['Accept'] = 'application/json';
 
 Vue.use(Vuetify)
 

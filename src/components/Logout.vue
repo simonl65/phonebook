@@ -28,8 +28,10 @@ export default {
   },
 
   created() {
+    Bus.$emit('logout');
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+    delete window.token;
   }
 }
 </script>

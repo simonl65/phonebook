@@ -11,18 +11,12 @@
         <v-btn
           v-for="(menu, index) in menus"
           :key="index"
-          :to="{name: menu.route}"
+          :to="{name:menu.route}"
           flat
         >
           {{ menu.name }}
         </v-btn>
 
-        <v-btn
-          color="success"
-          @click="getInfo"
-        >
-          get userinfo
-        </v-btn>
       </v-toolbar-items>
     </v-toolbar>
     <router-view/>
@@ -35,35 +29,36 @@ export default {
 
   data() {
     return {
-      title: "Phonebook",
-      menus: [
+      title    : "Phonebook",
+      menus    : [],
+      authMenu : [{ name: "Logout", route: "Logout" }],
+      guestMenu: [
         { name: "Signup", route: "Signup" },
         { name: "Login", route: "Login" }
       ],
     };
   },
 
-  mounted() {
-    let authMenu = [
-      { name: "Signup", route: "Signup" },
-      { name: "Login", route: "Login" }
-    ];
-    let guestMenu = [{ name: "Logout", route: "Logout" }];
+  created() {
+    this.menus = this.guestMenu;
 
-    if( token ) {
-      this.menus = authMenu;
-    }
-    else {
-      this.menus = guestMenu;
-    }
+    Bus.$on('loggedIn', () => {
+      this.onLoggedIn();
+    });
+
+    Bus.$on('logout', () => {
+      this.onLogout();
+    });
+
   },
 
   methods: {
-    getInfo() {
-      axios.get('/user')
-      .then( response => {
-        console.log(response)
-      })
+    onLoggedIn() {
+      this.menus = this.authMenu;
+    },
+
+    onLogout() {
+      this.menus = this.guestMenu;
     }
   },
 };
